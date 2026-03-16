@@ -1,0 +1,86 @@
+# Datasheet de Keybinds Atuais - Hyprland
+
+## Mais importantes
+
+- SUPER + Q: abrir terminal
+- SUPER + E: abrir gerenciador de arquivos
+- SUPER + R: abrir launcher
+- SUPER + C: fechar janela ativa
+- SUPER + M: sair da sessao / abrir hyprshutdown
+- SUPER + F: fullscreen da janela ativa
+- SUPER + V: alternar janela flutuante
+- SUPER + SHIFT + R: recarregar configuracao do Hyprland
+- SUPER + SHIFT + S: screenshot de area e copiar para clipboard
+
+## Foco entre janelas
+
+- SUPER + Left: focar janela a esquerda
+- SUPER + Right: focar janela a direita
+- SUPER + Up: focar janela acima
+- SUPER + Down: focar janela abaixo
+
+## Mover janelas
+
+- ALT + SHIFT + Left: mover janela para a esquerda
+- ALT + SHIFT + Right: mover janela para a direita
+- ALT + SHIFT + Up: mover janela para cima
+- ALT + SHIFT + Down: mover janela para baixo
+
+## Resize de janelas
+
+- ALT + U: diminuir largura
+- ALT + P: aumentar largura
+- ALT + O: diminuir altura
+- ALT + I: aumentar altura
+
+## Workspaces
+
+- ALT + 1: ir para workspace 1
+- ALT + 2: ir para workspace 2
+- ALT + 3: ir para workspace 3
+- ALT + 4: ir para workspace 4
+- ALT + 5: ir para workspace 5
+- ALT + 6: ir para workspace 6
+- ALT + 7: ir para workspace 7
+- ALT + 8: ir para workspace 8
+- ALT + 9: ir para workspace 9
+- ALT + 0: ir para workspace 10
+
+## Mover janela para workspace
+
+- ALT + SHIFT + 1: mover janela para workspace 1
+- ALT + SHIFT + 2: mover janela para workspace 2
+- ALT + SHIFT + 3: mover janela para workspace 3
+- ALT + SHIFT + 4: mover janela para workspace 4
+- ALT + SHIFT + 5: mover janela para workspace 5
+- ALT + SHIFT + 6: mover janela para workspace 6
+- ALT + SHIFT + 7: mover janela para workspace 7
+- ALT + SHIFT + 8: mover janela para workspace 8
+- ALT + SHIFT + 9: mover janela para workspace 9
+- ALT + SHIFT + 0: mover janela para workspace 10
+
+## Layout e recursos extras
+
+- SUPER + P: alternar pseudotile
+- SUPER + J: alternar split do layout
+- SUPER + S: abrir/fechar workspace especial
+
+## Mouse
+
+- SUPER + scroll down: proxima workspace
+- SUPER + scroll up: workspace anterior
+- SUPER + botao esquerdo do mouse: mover janela
+- SUPER + botao direito do mouse: redimensionar janela
+
+## Midia e sistema
+
+- XF86AudioRaiseVolume: aumentar volume
+- XF86AudioLowerVolume: diminuir volume
+- XF86AudioMute: mutar audio
+- XF86AudioMicMute: mutar microfone
+- XF86MonBrightnessUp: aumentar brilho
+- XF86MonBrightnessDown: diminuir brilho
+- XF86AudioNext: proxima faixa
+- XF86AudioPause: play/pause
+- XF86AudioPlay: play/pause
+- XF86AudioPrev: faixa anterior
