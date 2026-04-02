@@ -14,8 +14,10 @@ USERNAME = "LucasLouvem"
 API_BASE = "https://api.github.com"
 OUTPUT_LIGHT = Path("assets/profile-light.svg")
 OUTPUT_DARK = Path("assets/profile-dark.svg")
-RIGHT_COLUMN_X = 600
-LEFT_ART_X = 70
+SVG_WIDTH = 1320
+SVG_HEIGHT = 560
+RIGHT_COLUMN_X = 760
+LEFT_ART_X = 120
 
 
 def request_json(url: str, token: str | None, data: dict | None = None) -> dict | list:
@@ -213,7 +215,7 @@ def make_svg(theme: dict[str, str], lines: list[str]) -> str:
         )
         y += 22
 
-    return f"""<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="560" viewBox="0 0 1100 560" role="img" aria-labelledby="title desc">
+    return f"""<svg xmlns="http://www.w3.org/2000/svg" width="{SVG_WIDTH}" height="{SVG_HEIGHT}" viewBox="0 0 {SVG_WIDTH} {SVG_HEIGHT}" role="img" aria-labelledby="title desc">
   <title id="title">README terminal de {USERNAME}</title>
   <desc id="desc">Painel simples com informacoes de perfil e estatisticas publicas do GitHub.</desc>
   <style>
@@ -222,8 +224,8 @@ def make_svg(theme: dict[str, str], lines: list[str]) -> str:
       font-size: 15px;
     }}
   </style>
-  <rect width="1100" height="560" rx="18" fill="{theme["bg"]}"/>
-  <rect x="12" y="12" width="1076" height="536" rx="12" fill="none" stroke="{theme["border"]}"/>
+  <rect width="{SVG_WIDTH}" height="{SVG_HEIGHT}" rx="18" fill="{theme["bg"]}"/>
+  <rect x="12" y="12" width="{SVG_WIDTH - 24}" height="{SVG_HEIGHT - 24}" rx="12" fill="none" stroke="{theme["border"]}"/>
   {''.join(left_texts)}
   {''.join(right_texts)}
 </svg>
