@@ -152,21 +152,29 @@ def build_lines(user: dict, repos: list[dict], contributions: int | None) -> lis
 
 
 def make_svg(theme: dict[str, str], lines: list[str]) -> str:
-    left_lines = [
-        "lucas@louvem",
-        "profile --fetch",
-        "",
+    left_header = "lucas@louvem"
+    left_subheader = "profile --fetch"
+    left_tags = [
         "fullstack + appsec",
         "infra + devsecops",
     ]
 
     left_texts: list[str] = []
-    left_y = 72
-    for line in left_lines:
+    left_texts.append(
+        f'<text x="56" y="74" class="mono" fill="{theme["accent"]}" font-weight="700">{escape_xml(left_header)}</text>'
+    )
+    left_texts.append(
+        f'<text x="56" y="98" class="mono" fill="{theme["logo"]}">{escape_xml(left_subheader)}</text>'
+    )
+    tag_y = 142
+    for tag in left_tags:
         left_texts.append(
-            f'<text x="56" y="{left_y}" class="mono" fill="{theme["logo"]}">{escape_xml(line)}</text>'
+            f'<rect x="56" y="{tag_y - 16}" width="170" height="26" rx="6" fill="{theme["tag_bg"]}" stroke="{theme["border"]}"/>'
         )
-        left_y += 22
+        left_texts.append(
+            f'<text x="68" y="{tag_y + 1}" class="mono" fill="{theme["logo"]}">{escape_xml(tag)}</text>'
+        )
+        tag_y += 34
 
     right_texts: list[str] = []
     y = 44
@@ -191,7 +199,9 @@ def make_svg(theme: dict[str, str], lines: list[str]) -> str:
   <rect x="10" y="10" width="960" height="440" rx="12" fill="none" stroke="{theme["border"]}"/>
   <rect x="36" y="36" width="230" height="164" rx="10" fill="none" stroke="{theme["border"]}"/>
   <line x1="36" y1="58" x2="266" y2="58" stroke="{theme["border"]}"/>
-  <line x1="36" y1="178" x2="266" y2="178" stroke="{theme["border"]}"/>
+  <circle cx="54" cy="47" r="3" fill="{theme["dot_1"]}"/>
+  <circle cx="66" cy="47" r="3" fill="{theme["dot_2"]}"/>
+  <circle cx="78" cy="47" r="3" fill="{theme["dot_3"]}"/>
   {''.join(left_texts)}
   {''.join(right_texts)}
 </svg>
@@ -217,6 +227,10 @@ def main() -> int:
         "text": "#24292f",
         "accent": "#0969da",
         "logo": "#1f2328",
+        "tag_bg": "#f3f4f6",
+        "dot_1": "#ff5f56",
+        "dot_2": "#ffbd2e",
+        "dot_3": "#27c93f",
     }
     dark = {
         "bg": "#0d1117",
@@ -224,6 +238,10 @@ def main() -> int:
         "text": "#c9d1d9",
         "accent": "#58a6ff",
         "logo": "#8b949e",
+        "tag_bg": "#161b22",
+        "dot_1": "#ff5f56",
+        "dot_2": "#ffbd2e",
+        "dot_3": "#27c93f",
     }
 
     write_svg(OUTPUT_LIGHT, make_svg(light, lines))
