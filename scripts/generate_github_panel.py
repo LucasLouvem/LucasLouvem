@@ -17,7 +17,7 @@ OUTPUT_DARK = Path("assets/profile-dark.svg")
 SVG_WIDTH = 1320
 SVG_HEIGHT = 560
 RIGHT_COLUMN_X = 850
-LEFT_ART_X = 160
+LEFT_ART_X = 560
 
 
 def request_json(url: str, token: str | None, data: dict | None = None) -> dict | list:
