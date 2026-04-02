@@ -162,7 +162,14 @@ def make_svg(theme: dict[str, str], lines: list[str]) -> str:
         "+----------------------+",
     ]
 
-    left_text = "\n".join(left_block)
+    left_tspans: list[str] = []
+    left_y = 52
+    for line in left_block:
+        left_tspans.append(
+            f'<tspan x="36" y="{left_y}" fill="{theme["logo"]}">{escape_xml(line)}</tspan>'
+        )
+        left_y += 22
+
     right_tspans: list[str] = []
     y = 44
     for index, line in enumerate(lines):
@@ -180,12 +187,13 @@ def make_svg(theme: dict[str, str], lines: list[str]) -> str:
     .mono {{
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
       font-size: 16px;
-      white-space: pre;
     }}
   </style>
   <rect width="980" height="460" rx="18" fill="{theme["bg"]}"/>
   <rect x="10" y="10" width="960" height="440" rx="12" fill="none" stroke="{theme["border"]}"/>
-  <text x="36" y="52" class="mono" fill="{theme["logo"]}">{escape_xml(left_text)}</text>
+  <text class="mono">
+    {''.join(left_tspans)}
+  </text>
   <text class="mono">
     {''.join(right_tspans)}
   </text>
