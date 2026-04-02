@@ -16,7 +16,7 @@ OUTPUT_LIGHT = Path("assets/profile-light.svg")
 OUTPUT_DARK = Path("assets/profile-dark.svg")
 SVG_WIDTH = 1320
 SVG_HEIGHT = 560
-RIGHT_COLUMN_X = 810
+RIGHT_COLUMN_X = 850
 LEFT_ART_X = 120
 
 
