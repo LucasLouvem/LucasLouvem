@@ -152,21 +152,19 @@ def build_lines(user: dict, repos: list[dict], contributions: int | None) -> lis
 
 
 def make_svg(theme: dict[str, str], lines: list[str]) -> str:
-    left_block = [
-        "+----------------------+",
-        "|  lucas@louvem        |",
-        "|  profile --fetch     |",
-        "|                      |",
-        "|  fullstack + appsec  |",
-        "|  infra + devsecops   |",
-        "+----------------------+",
+    left_lines = [
+        "lucas@louvem",
+        "profile --fetch",
+        "",
+        "fullstack + appsec",
+        "infra + devsecops",
     ]
 
     left_texts: list[str] = []
-    left_y = 52
-    for line in left_block:
+    left_y = 72
+    for line in left_lines:
         left_texts.append(
-            f'<text x="36" y="{left_y}" class="mono" fill="{theme["logo"]}">{escape_xml(line)}</text>'
+            f'<text x="56" y="{left_y}" class="mono" fill="{theme["logo"]}">{escape_xml(line)}</text>'
         )
         left_y += 22
 
@@ -191,6 +189,9 @@ def make_svg(theme: dict[str, str], lines: list[str]) -> str:
   </style>
   <rect width="980" height="460" rx="18" fill="{theme["bg"]}"/>
   <rect x="10" y="10" width="960" height="440" rx="12" fill="none" stroke="{theme["border"]}"/>
+  <rect x="36" y="36" width="230" height="164" rx="10" fill="none" stroke="{theme["border"]}"/>
+  <line x1="36" y1="58" x2="266" y2="58" stroke="{theme["border"]}"/>
+  <line x1="36" y1="178" x2="266" y2="178" stroke="{theme["border"]}"/>
   {''.join(left_texts)}
   {''.join(right_texts)}
 </svg>
