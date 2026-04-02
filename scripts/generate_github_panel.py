@@ -162,21 +162,21 @@ def make_svg(theme: dict[str, str], lines: list[str]) -> str:
         "+----------------------+",
     ]
 
-    left_tspans: list[str] = []
+    left_texts: list[str] = []
     left_y = 52
     for line in left_block:
-        left_tspans.append(
-            f'<tspan x="36" y="{left_y}" fill="{theme["logo"]}">{escape_xml(line)}</tspan>'
+        left_texts.append(
+            f'<text x="36" y="{left_y}" class="mono" fill="{theme["logo"]}">{escape_xml(line)}</text>'
         )
         left_y += 22
 
-    right_tspans: list[str] = []
+    right_texts: list[str] = []
     y = 44
     for index, line in enumerate(lines):
         fill = theme["accent"] if index == 0 else theme["text"]
         weight = "700" if index in {0, 1} else "400"
-        right_tspans.append(
-            f'<tspan x="350" y="{y}" fill="{fill}" font-weight="{weight}">{escape_xml(line)}</tspan>'
+        right_texts.append(
+            f'<text x="350" y="{y}" class="mono" fill="{fill}" font-weight="{weight}">{escape_xml(line)}</text>'
         )
         y += 22
 
@@ -191,12 +191,8 @@ def make_svg(theme: dict[str, str], lines: list[str]) -> str:
   </style>
   <rect width="980" height="460" rx="18" fill="{theme["bg"]}"/>
   <rect x="10" y="10" width="960" height="440" rx="12" fill="none" stroke="{theme["border"]}"/>
-  <text class="mono">
-    {''.join(left_tspans)}
-  </text>
-  <text class="mono">
-    {''.join(right_tspans)}
-  </text>
+  {''.join(left_texts)}
+  {''.join(right_texts)}
 </svg>
 """
 
