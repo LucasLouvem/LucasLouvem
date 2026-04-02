@@ -1,6 +1,6 @@
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/LucasLouvem/LucasLouvem/main/assets/profile-dark.svg">
-  <img alt="Painel de perfil estilo terminal de Lucas Louvem" src="https://raw.githubusercontent.com/LucasLouvem/LucasLouvem/main/assets/profile-light.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/profile-dark.svg">
+  <img alt="Painel de perfil estilo terminal de Lucas Louvem" src="./assets/profile-light.svg">
 </picture>
 
 Desenvolvedor Full Stack Júnior com foco em back-end, segurança de aplicações e confiabilidade de sistemas. Base sólida em infraestrutura, redes e operação, com evolução contínua para DevSecOps.
