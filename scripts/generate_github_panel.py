@@ -14,7 +14,7 @@ USERNAME = "LucasLouvem"
 API_BASE = "https://api.github.com"
 OUTPUT_LIGHT = Path("assets/profile-light.svg")
 OUTPUT_DARK = Path("assets/profile-dark.svg")
-RIGHT_COLUMN_X = 470
+RIGHT_COLUMN_X = 520
 
 
 def request_json(url: str, token: str | None, data: dict | None = None) -> dict | list:
