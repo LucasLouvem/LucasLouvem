@@ -14,7 +14,8 @@ USERNAME = "LucasLouvem"
 API_BASE = "https://api.github.com"
 OUTPUT_LIGHT = Path("assets/profile-light.svg")
 OUTPUT_DARK = Path("assets/profile-dark.svg")
-RIGHT_COLUMN_X = 520
+RIGHT_COLUMN_X = 600
+LEFT_ART_X = 70
 
 
 def request_json(url: str, token: str | None, data: dict | None = None) -> dict | list:
@@ -185,7 +186,7 @@ def make_svg(theme: dict[str, str], lines: list[str]) -> str:
     for index, line in enumerate(left_art):
         fill = theme["accent"] if index in {0, len(left_art) - 1} else theme["logo"]
         left_texts.append(
-            f'<text x="34" y="{left_y}" class="mono" fill="{fill}">{escape_xml(line)}</text>'
+            f'<text x="{LEFT_ART_X}" y="{left_y}" class="mono" fill="{fill}">{escape_xml(line)}</text>'
         )
         left_y += 22
 
