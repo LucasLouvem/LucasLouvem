@@ -130,78 +130,92 @@ def build_lines(user: dict, repos: list[dict], contributions: int | None) -> lis
 
     return [
         f"{USERNAME.lower()}@github",
-        "------------------------------",
-        kv("cargo", "Full Stack Junior"),
-        kv("foco", "Back-end, AppSec"),
-        kv("stack", "Python, Django, PostgreSQL, Docker"),
-        kv("base", "Infra, redes, acessos"),
+        "-" * 46,
+        kv("Cargo", "Desenvolvedor Full Stack Junior", 19),
+        kv("Foco", "Back-end, AppSec", 19),
+        kv("Base", "Infraestrutura, redes, acessos", 19),
+        kv("Trilha", "DevSecOps em formacao", 19),
         "",
-        kv("seguranca", "Desenvolvimento seguro"),
-        kv("trilha", "DevSecOps em formacao"),
-        kv("comunidade", "DESEC, Hackerclub, THM, HTB"),
-        kv("destaque", "1o lugar no CTF BSidesRJ"),
+        kv("Stack.Backend", "Python, Django", 19),
+        kv("Stack.Frontend", "JavaScript, React", 19),
+        kv("Stack.Data", "PostgreSQL", 19),
+        kv("Stack.DevOps", "Docker, Git", 19),
+        kv("Stack.Security", "Desenvolvimento seguro", 19),
         "",
-        kv("repos", str(len(own_repos))),
-        kv("seguidores", str(user.get("followers", 0))),
-        kv("estrelas", str(stars)),
-        kv("contribuicoes", str(contributions) if contributions is not None else "-"),
-        kv("linguagens", top_languages),
-        kv("ultimo push", latest_push),
-        kv("atualizado", today),
+        "- Contato " + "-" * 36,
+        kv("LinkedIn", "lucas-louvem", 19),
+        kv("GitHub", "LucasLouvem", 19),
+        "",
+        "- GitHub Stats " + "-" * 30,
+        kv("Repos", str(len(own_repos)), 19) + f" | Stars {'.' * 8} {stars}",
+        kv("Seguidores", str(user.get("followers", 0)), 19) + f" | Contribs {'.' * 5} {contributions if contributions is not None else '-'}",
+        kv("Linguagens", top_languages, 19),
+        kv("Ultimo push", latest_push, 19),
+        kv("Atualizado", today, 19),
     ]
 
 
 def make_svg(theme: dict[str, str], lines: list[str]) -> str:
-    left_header = "lucas@louvem"
-    left_subheader = "profile --fetch"
-    left_tags = [
-        "fullstack + appsec",
-        "infra + devsecops",
+    left_art = [
+        "        .-''''-.",
+        "      .'  _  _  '.",
+        "     /   (o)(o)   \\",
+        "    |   .-.__.-.   |",
+        "    |  /  ____  \\  |",
+        "    |  | | __ | |  |",
+        "    |  | ||  || |  |",
+        "    |  | ||__|| |  |",
+        "    |  \\_\\____/_/  |",
+        "    |    /____\\    |",
+        "     \\    |  |    /",
+        "      '.  |  |  .'",
+        "        '-.__.-'",
+        "      secure builder",
     ]
 
     left_texts: list[str] = []
-    left_texts.append(
-        f'<text x="56" y="74" class="mono" fill="{theme["accent"]}" font-weight="700">{escape_xml(left_header)}</text>'
-    )
-    left_texts.append(
-        f'<text x="56" y="98" class="mono" fill="{theme["logo"]}">{escape_xml(left_subheader)}</text>'
-    )
-    tag_y = 142
-    for tag in left_tags:
+    left_y = 54
+    for index, line in enumerate(left_art):
+        fill = theme["accent"] if index in {0, len(left_art) - 1} else theme["logo"]
         left_texts.append(
-            f'<rect x="56" y="{tag_y - 16}" width="170" height="26" rx="6" fill="{theme["tag_bg"]}" stroke="{theme["border"]}"/>'
+            f'<text x="34" y="{left_y}" class="mono" fill="{fill}">{escape_xml(line)}</text>'
         )
-        left_texts.append(
-            f'<text x="68" y="{tag_y + 1}" class="mono" fill="{theme["logo"]}">{escape_xml(tag)}</text>'
-        )
-        tag_y += 34
+        left_y += 22
 
     right_texts: list[str] = []
     y = 44
     for index, line in enumerate(lines):
-        fill = theme["accent"] if index == 0 else theme["text"]
-        weight = "700" if index in {0, 1} else "400"
+        if index == 0:
+            fill = theme["text"]
+            weight = "400"
+        elif line.startswith("- "):
+            fill = theme["text"]
+            weight = "400"
+        elif "." in line.split(":")[0]:
+            fill = theme["key_alt"]
+            weight = "400"
+        elif ":" in line:
+            fill = theme["key"]
+            weight = "400"
+        else:
+            fill = theme["text"]
+            weight = "400"
         right_texts.append(
             f'<text x="350" y="{y}" class="mono" fill="{fill}" font-weight="{weight}">{escape_xml(line)}</text>'
         )
         y += 22
 
-    return f"""<svg xmlns="http://www.w3.org/2000/svg" width="980" height="460" viewBox="0 0 980 460" role="img" aria-labelledby="title desc">
+    return f"""<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="560" viewBox="0 0 1100 560" role="img" aria-labelledby="title desc">
   <title id="title">README terminal de {USERNAME}</title>
   <desc id="desc">Painel simples com informacoes de perfil e estatisticas publicas do GitHub.</desc>
   <style>
     .mono {{
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-      font-size: 16px;
+      font-size: 15px;
     }}
   </style>
-  <rect width="980" height="460" rx="18" fill="{theme["bg"]}"/>
-  <rect x="10" y="10" width="960" height="440" rx="12" fill="none" stroke="{theme["border"]}"/>
-  <rect x="36" y="36" width="230" height="164" rx="10" fill="none" stroke="{theme["border"]}"/>
-  <line x1="36" y1="58" x2="266" y2="58" stroke="{theme["border"]}"/>
-  <circle cx="54" cy="47" r="3" fill="{theme["dot_1"]}"/>
-  <circle cx="66" cy="47" r="3" fill="{theme["dot_2"]}"/>
-  <circle cx="78" cy="47" r="3" fill="{theme["dot_3"]}"/>
+  <rect width="1100" height="560" rx="18" fill="{theme["bg"]}"/>
+  <rect x="12" y="12" width="1076" height="536" rx="12" fill="none" stroke="{theme["border"]}"/>
   {''.join(left_texts)}
   {''.join(right_texts)}
 </svg>
@@ -227,10 +241,8 @@ def main() -> int:
         "text": "#24292f",
         "accent": "#0969da",
         "logo": "#1f2328",
-        "tag_bg": "#f3f4f6",
-        "dot_1": "#ff5f56",
-        "dot_2": "#ffbd2e",
-        "dot_3": "#27c93f",
+        "key": "#953800",
+        "key_alt": "#b35900",
     }
     dark = {
         "bg": "#0d1117",
@@ -238,10 +250,8 @@ def main() -> int:
         "text": "#c9d1d9",
         "accent": "#58a6ff",
         "logo": "#8b949e",
-        "tag_bg": "#161b22",
-        "dot_1": "#ff5f56",
-        "dot_2": "#ffbd2e",
-        "dot_3": "#27c93f",
+        "key": "#ffb86c",
+        "key_alt": "#ffd28a",
     }
 
     write_svg(OUTPUT_LIGHT, make_svg(light, lines))
