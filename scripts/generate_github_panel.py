@@ -14,10 +14,13 @@ USERNAME = "LucasLouvem"
 API_BASE = "https://api.github.com"
 OUTPUT_LIGHT = Path("assets/profile-light.svg")
 OUTPUT_DARK = Path("assets/profile-dark.svg")
-SVG_WIDTH = 1320
-SVG_HEIGHT = 560
-RIGHT_COLUMN_X = 850
-LEFT_ART_X = 500
+FONT_SIZE = 15
+LINE_HEIGHT = 22
+CHAR_WIDTH = 9
+PADDING_X = 32
+PADDING_Y = 32
+COLUMN_GAP = 40
+BORDER_INSET = 12
 
 
 def request_json(url: str, token: str | None, data: dict | None = None) -> dict | list:
@@ -120,6 +123,14 @@ def kv(label: str, value: str, width: int = 16) -> str:
     return f"{label} {dots} {value}"
 
 
+def text_block_width(lines: list[str]) -> int:
+    return max((len(line) for line in lines), default=0) * CHAR_WIDTH
+
+
+def text_block_height(lines: list[str]) -> int:
+    return max(1, len(lines)) * LINE_HEIGHT
+
+
 def build_lines(user: dict, repos: list[dict], contributions: int | None) -> list[str]:
     own_repos = [repo for repo in repos if not repo.get("fork")]
     languages = Counter(
@@ -183,17 +194,26 @@ def make_svg(theme: dict[str, str], lines: list[str]) -> str:
         "          arch linux",
     ]
 
+    art_width = text_block_width(left_art)
+    text_width = text_block_width(lines)
+    content_height = max(text_block_height(left_art), text_block_height(lines))
+
+    left_art_x = PADDING_X
+    right_column_x = left_art_x + art_width + COLUMN_GAP
+    svg_width = right_column_x + text_width + PADDING_X
+    svg_height = PADDING_Y + content_height + PADDING_Y
+
     left_texts: list[str] = []
-    left_y = 54
+    left_y = PADDING_Y + FONT_SIZE
     for index, line in enumerate(left_art):
         fill = theme["accent"] if index in {0, len(left_art) - 1} else theme["logo"]
         left_texts.append(
-            f'<text x="{LEFT_ART_X}" y="{left_y}" class="mono" fill="{fill}">{escape_xml(line)}</text>'
+            f'<text x="{left_art_x}" y="{left_y}" class="mono" fill="{fill}">{escape_xml(line)}</text>'
         )
-        left_y += 22
+        left_y += LINE_HEIGHT
 
     right_texts: list[str] = []
-    y = 44
+    y = PADDING_Y + FONT_SIZE - 10
     for index, line in enumerate(lines):
         if index == 0:
             fill = theme["text"]
@@ -211,21 +231,21 @@ def make_svg(theme: dict[str, str], lines: list[str]) -> str:
             fill = theme["text"]
             weight = "400"
         right_texts.append(
-            f'<text x="{RIGHT_COLUMN_X}" y="{y}" class="mono" fill="{fill}" font-weight="{weight}">{escape_xml(line)}</text>'
+            f'<text x="{right_column_x}" y="{y}" class="mono" fill="{fill}" font-weight="{weight}">{escape_xml(line)}</text>'
         )
-        y += 22
+        y += LINE_HEIGHT
 
-    return f"""<svg xmlns="http://www.w3.org/2000/svg" width="{SVG_WIDTH}" height="{SVG_HEIGHT}" viewBox="0 0 {SVG_WIDTH} {SVG_HEIGHT}" role="img" aria-labelledby="title desc">
+    return f"""<svg xmlns="http://www.w3.org/2000/svg" width="{svg_width}" height="{svg_height}" viewBox="0 0 {svg_width} {svg_height}" role="img" aria-labelledby="title desc">
   <title id="title">README terminal de {USERNAME}</title>
   <desc id="desc">Painel simples com informacoes de perfil e estatisticas publicas do GitHub.</desc>
   <style>
     .mono {{
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-      font-size: 15px;
+      font-size: {FONT_SIZE}px;
     }}
   </style>
-  <rect width="{SVG_WIDTH}" height="{SVG_HEIGHT}" rx="18" fill="{theme["bg"]}"/>
-  <rect x="12" y="12" width="{SVG_WIDTH - 24}" height="{SVG_HEIGHT - 24}" rx="12" fill="none" stroke="{theme["border"]}"/>
+  <rect width="{svg_width}" height="{svg_height}" rx="18" fill="{theme["bg"]}"/>
+  <rect x="{BORDER_INSET}" y="{BORDER_INSET}" width="{svg_width - (BORDER_INSET * 2)}" height="{svg_height - (BORDER_INSET * 2)}" rx="12" fill="none" stroke="{theme["border"]}"/>
   {''.join(left_texts)}
   {''.join(right_texts)}
 </svg>
