@@ -17,7 +17,7 @@ OUTPUT_DARK = Path("assets/profile-dark.svg")
 SVG_WIDTH = 1320
 SVG_HEIGHT = 560
 RIGHT_COLUMN_X = 850
-LEFT_ART_X = 560
+LEFT_ART_X = 500
 
 
 def request_json(url: str, token: str | None, data: dict | None = None) -> dict | list:
@@ -161,26 +161,26 @@ def build_lines(user: dict, repos: list[dict], contributions: int | None) -> lis
 
 def make_svg(theme: dict[str, str], lines: list[str]) -> str:
     left_art = [
-        "                   -`",
-        "                  .o+`",
-        "                 `ooo/",
-        "                `+oooo:",
-        "               `+oooooo:",
-        "               -+oooooo+:",
-        "             `/:-:++oooo+:",
-        "            `/++++/+++++++:",
-        "           `/++++++++++++++:",
-        "          `/+++ooooooooooooo/`",
-        "         ./ooosssso++osssssso+`",
-        "        .oossssso-````/ossssss+`",
-        "       -osssssso.      :ssssssso.",
-        "      :osssssss/        osssso+++.",
-        "     /ossssssss/        +ssssooo/-",
-        "   `/ossssso+/:-        -:/+osssso+-",
-        "  `+sso+:-`                 `.-/+oso:",
-        " `++:.                           `-/+/",
-        " .`                                 `",
-        "             arch linux",
+        "          -`",
+        "         .o+`",
+        "        `ooo/",
+        "       `+oooo:",
+        "      `+oooooo:",
+        "      -+oooooo+:",
+        "    `/:-:++oooo+:",
+        "   `/++++/+++++++:",
+        "  `/++++++++++++++:",
+        " `/+++ooooooooooooo/`",
+        "./ooosssso++osssssso+`",
+        ".oossssso-````/ossssss+`",
+        "-osssssso.      :ssssssso.",
+        ":osssssss/        osssso+++.",
+        "/ossssssss/        +ssssooo/-",
+        "`/ossssso+/:-        -:/+osssso+-",
+        "`+sso+:-`                 `.-/+oso:",
+        "`++:.                           `-/+/",
+        ".`                                 `",
+        "          arch linux",
     ]
 
     left_texts: list[str] = []
